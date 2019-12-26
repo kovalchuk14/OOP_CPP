@@ -1,5 +1,4 @@
 #include<iostream>
-//4-6-4-3,      4-6-3-2,   2-4-2-1,      2-6-5,   2-6-5,   4-2, 4-5-4-3, 3-5-3-1, 8-0-8-7
 class Point
 {
 	double x;
@@ -52,6 +51,40 @@ public:
 	{
 		std::cout << "Destructor:\t" << this << std::endl;
 	}
+	//Point operator+(const Point& other)const
+	//{
+	//	Point result;
+	//	result.x=this->x + other.x;
+	//	result.y =this->y + other.y;
+	//	return result;
+	//}
+	Point operator-(const Point& other)const
+	{
+		Point result;
+		result.x = this->x - other.x;
+		result.y = this->y - other.y;
+		return result;
+	}
+	Point operator*(const Point& other)const
+	{
+		Point result;
+		result.x = this->x * other.x;
+		result.y = this->y * other.y;
+		return result;
+	}
+	Point operator/(const Point& other)const
+	{
+		Point result;
+		result.x = this->x / other.x;
+		result.y = this->y / other.y;
+		return result;
+	}
+	Point& operator+=(const Point& other)
+	{
+		this->x += other.x;
+		this->y += other.y;
+		return *this;
+	}
 	void operator=(const Point&other)
 	{
 		this->x = other.x;
@@ -64,7 +97,15 @@ public:
 		std::cout << "x = " << x << "\t" << "y = " << y << std::endl;
 	}
 };
-
+Point operator+(const Point& left, const Point& right)
+{
+	//Point result;
+	//result.set_x(left.get_x() + right.get_x());
+	//result.set_y(left.get_y() + right.get_y());
+	std::cout << "G operator +" << std::endl;
+	return Point(left.get_x() + right.get_x(), left.get_y() + right.get_y());
+}
+double distance(const Point A,const Point B);
 //#define BASICS
 //#define ENCAPSULATION
 //#define CONSTRUCTORS
@@ -111,8 +152,21 @@ void main()
 	G.print();
 #endif
 	Point A(5, 2);
+	Point B(1,5);//Default 
+	Point C;
+	C = A + B;
 	A.print();
-	Point B;//Default constructor
-	B = A;//Copy assignment
 	B.print();
+	C.print();
+	std::cout << "\n--------------\n";
+	
+	std::cout << "\n--------------\n";
+	std::cout<<distance(A,B)<<std::endl;
+}
+double distance(const Point A, const Point B)
+{
+	double x = A.get_x() - B.get_x();
+	double y = A.get_y() - B.get_y();
+	double distance = sqrt(x*x + y * y);
+	return distance;
 }
